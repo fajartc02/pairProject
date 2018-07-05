@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Edit List Item</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <h1>Edit Item</h1>
+    <br>
+    <form action="/item/<%= dataItem.id %>/edit" method="post">
+        Name Item:<br>
+        <input type="text" name="nameItem" value="<%= dataItem.itemName %>">
+        <br>
+        Price:<br>
+        <input type="text" name="price" value="<%= dataItem.price %>">
+        <br>
+        Type:<br>
+        <select name="type">
+            <option value="Mechanic">Mechanic</option>
+            <option value="Electric">Electric</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form> 
+</body>
+</html>
