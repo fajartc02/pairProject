@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       location: {
-        type: Sequelize.GEOMETRY
+        type: Sequelize.STRING
       },
       phoneNumber: {
         type: Sequelize.STRING
