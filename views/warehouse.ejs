@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Our Warehouses</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center">Our Warehouses</h1>
+    <% if(!user) { %>
+    <h3 style="text-align: center"><a href="/" style="text-decoration: none">Home</a></h3> 
+    <%  } else {  %>    
+    <h3 style="text-align: center"><a href="/warehouses/add" style="text-decoration: none">Add Warehouse</a></h3>
+    <% } %>
+    <table>
+        <tr>
+            <th>Warehouse Name</th>
+            <th colspan= "3">Contacts</th>
+            <%  if (user) { %>
+            <th>Options</th>
+            <% } %>
+        </tr>
+        <% warehouses.forEach( warehouse => { %>
+            <tr>
+                <td><%= warehouse.warehouseName %></td>
+                <td><%= warehouse.phoneNumber %></td>
+                <td><%= warehouse.email %></td>
+                <td><%= warehouse.address %></td>
+                <%  if(user) {   %>
+                <td><a href="/warehouses/<%= warehouse.id %>/edit">Edit</a> | <a href="/warehouses/<%= warehouse.id %>/delete" onclick="return confirm('Are you sure you want to delete this data?')">Delete</a></td>
+                <%    }  %>
+            </tr>
+           <% }) %>
+    </table> 
+</body>
+</html>
