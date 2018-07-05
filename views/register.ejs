@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center">Register Account</h1>
+    <h3 style="text-align: center"><a href="/" style="text-decoration: none">Home</a></h3>
+    <form action="/register" method="post">
+        Username:<br>
+        <input type="text" name="username" placeholder="username">
+        <br>
+        Password:<br>
+        <input type="password" name="password" placeholder="password">
+        <br>
+        Confirm Password:<br>
+        <input type="password" name="repassword" placeholder="password">
+        <br><br>
+        <input type="submit" value="Register">
+        <br><br>
+    </form>
+    <% if (message !== null) { %>
+        <h3 style="color: firebrick"><%= message %></h3>
+   <%  } %>
+</body>
+</html>

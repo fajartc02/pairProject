@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   Item.associate = function(models) {
     // associations can be defined here
     Item.belongsToMany(models.Warehouse, {through: models.ItemWarehouse})
-    Item.hasMany(models.Warehouse)
+    Item.hasMany(models.ItemWarehouse)
   };
   return Item;
 };

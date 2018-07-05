@@ -30,14 +30,14 @@
 </head>
 <body>
     <h1 style="text-align: center">List Data Items</h1>
-    <h3 style="text-align: center"><a href="/" style="text-decoration: none">Home</a> | <a href="/items/add" style="text-decoration: none">Add List Item</a></h3>
+    <h3 style="text-align: center"><a href="/" style="text-decoration: none">Home</a></h3>
     <table>
         <tr>
             <th>Id</th>
             <th>Name Item</th>
             <th>Price</th>
             <th>Type</th>
-            <th>Options</th>
+            <!-- <th>Options</th> -->
         </tr>
         <% dataItems.forEach((dataItem) => { %>
             <tr>
@@ -45,14 +45,9 @@
                 <td><%= dataItem.itemName %></td>
                 <td><%= dataItem.price %></td>
                 <td><%= dataItem.type %></td>
-                <td><a href="/items/<%= dataItem.id %>/edit">Edit</a> | <a href="/items/<%= dataItem.id %>/delete" onclick="return confirm('Are you sure you want to delete this data?')">Delete</a></td>
+                <!-- <td><a href="/items/<%= dataItem.id %>/edit">Edit</a> | <a href="/items/<%= dataItem.id %>/delete" onclick="return confirm('Are you sure you want to delete this data?')">Delete</a></td> -->
             </tr>
            <% }) %>
     </table>
-    <% if (!user) { %>
-        <h3>fajar belum masuk</h3>
-  <%  } else { %>
-     <h3>fajar masuk</h3>
-  <%    } %>
 </body>
 </html>

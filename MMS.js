@@ -1,24 +1,34 @@
 const express = require('express')
 const app = express()
+const session = require('express-session')
+const router = require('./routes/index')
+const item = require('./routes/item')
+const register = require('./routes/register')
+const logout = require('./routes/logout')
+const login = require('./routes/login')
 // var urlencodedParser = require('urlencoded-parser'); // ES5
-const models = require('./models')
 app.use(express.urlencoded({
     extended:false
 }))
 
-models.Warehouse.create({
-    warehouseName: 'test',
-    location: {type: 'Point', coordinates: [-6,106]},
-    phoneNumber: '098765756',
-    email: 'a@mail.com',
-    address: ''
-})
-.then()
-const router = require('./routes/index')
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'treassure-fox',
+  resave: false,
+  saveUninitialized: false,
+}))
+
+
+
 app.use('/', router)
 
-const item = require('./routes/item')
-app.use('/item', item)
+app.use('/items', item)
+
+app.use('/register', register)
+
+app.use('/login', login)
+
+app.use('/logout', logout)
 
 app.listen(3000, () => {
     console.log('Connected with port 3000');

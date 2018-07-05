@@ -3,7 +3,8 @@ const router = require('express').Router()
 
 router.get('/', (req, res) => {
     // res.send('connected with routes')
-    res.render('homepage.ejs')
+    res.render('homepage.ejs') 
+    // console.log(req.session.username);
 })
 
 

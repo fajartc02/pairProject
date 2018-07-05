@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const Model = require('../models')
 const Item = Model.Item
-
+// data for ADMIN
 router.get('/', (req, res) => {
     Item.findAll({
         order: [
@@ -9,7 +9,9 @@ router.get('/', (req, res) => {
         ]
     })
     .then(dataItem => {
-        res.render('item.ejs', {dataItems:dataItem})
+        console.log(req.session.username);
+        
+        res.render('item.ejs', {dataItems:dataItem,user:req.session.username})
     })
     .catch(err => {
         res.send(err)
@@ -29,7 +31,7 @@ router.post('/add', (req, res) => {
     .then(() => {
         console.log(req.body.type);
         
-        res.redirect('/item')
+        res.redirect('/items')
     })
 })
 
@@ -55,7 +57,7 @@ router.post('/:id/edit', (req, res) => {
         }
     })
     .then(() => {
-        res.redirect('/item')
+        res.redirect('/items')
     })
 })
 
@@ -66,7 +68,7 @@ router.get('/:id/delete', (req, res) => {
         }
     })
     .then(() => {
-        res.redirect('/item')
+        res.redirect('/items')
     })
 })
 
