@@ -1,28 +1,47 @@
 const router = require('express').Router()
 const Model = require('../models')
-const axios = require('axios')
+const Op = require('sequelize').Op
 
 router.get('/', (req, res) => {
   res.render('search.ejs')
+  .catch(err=>{
+    res.send(err.message)
+  })
 })
 
 router.post('/result', (req, res)=> {
-  Model.Warehouse.geocode('Hacktiv8 Indonesia', (result)=> {
-    let user = {
-      address: result.address,
-      coordinate: result.coordinate
-    }
-    Model.Warehouse.findAll()
-    .then (warehouses => {
-      warehouses.forEach (warehouse => {
-        let coordinateArr = warehouse.location.split(',')
-        let lat = +coordinateArr[0]
-        let lng = +coordinateArr[1]
-        let distance = Model.Warehouse.distance(user.coordinate.lat, user.coordinate.lng,)
-      })
-      res.send(Model.Warehouse.distance(1,2,3,4, ))
+  Model.Item.find({
+    where: {itemName: {[Op.iLike]: `%${req.body.item}%`}},
+    include: [Model.ItemWarehouse, Model.Warehouse]
+  })
+  .then(item => {
+    Model.Warehouse.geocode(req.body.location, (result)=> {
+      let user = {
+        address: result.address,
+        coordinate: result.coordinate
+      }
+      let distanceArr= []  
+      
+      if (item.Warehouses.length > 0){
+
+        for (let i = 0; i < item.Warehouses.length; i++){
+  
+          let coordinateArr = item.Warehouses[i].location.split(',')
+          let latWH = +coordinateArr[0]
+          let lngWH = +coordinateArr[1]
+  
+          Model.Warehouse.distance(user.coordinate.lat, user.coordinate.lng, latWH, lngWH, (distanceResult)=>{
+            
+            distanceArr.push(distanceResult)
+          })
+        }
+      } 
+      distanceArr
+      res.render('search-result.ejs', {item:item, distanceArr:distanceArr})
     })
-    
+  })
+  .catch (err=>{
+    res.send(err.message)
   })
 
 })

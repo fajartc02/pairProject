@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Search Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Item Name</th>
+            <th>Stocks</th>
+            <th>Price</th>
+            <th>Type</th>
+            <th>Warehouse Name</th>
+            <th>Warehouse Address</th>
+            <th><button onclick="sortList()">Distance (km)</button></th>
+        </tr>
+        <tr>
+        <td><%= item.itemName %></td>
+        <td>
+            <% for (let i = 0; i < item.ItemWarehouses.length; i++){ %>
+                <li><%= item.ItemWarehouses[i].stock %></li>
+            <% } %>
+        </td>    
+        <td><%= item.price %> </td>
+        <td><%= item.type %> </td>        
+        <td>
+            <% for (let i = 0; i < item.Warehouses.length; i++){ %>
+                <li><%= item.Warehouses[i].warehouseName %></li>
+            <% } %>
+        </td>
+        <td>
+            <% for (let i = 0; i < item.Warehouses.length; i++){ %>
+                <li><%= item.Warehouses[i].address %></li>
+            <% } %>    
+        </td>
+        <td>
+            <ul id="id01">
+            <% for (let i = 0; i < distanceArr.length; i++){ %>
+                <li><%= distanceArr[i] %></li>
+            <% } %>
+            </ul>
+        </td>
+        </tr>
+    </table>
+    <script>
+function sortList() {
+  var list, i, switching, b, shouldSwitch;
+  list = document.getElementById("id01");
+  switching = true;
+  while (switching) {
+    switching = false;
+    b = list.getElementsByTagName("LI");
+    for (i = 0; i < (b.length - 1); i++) {
+      shouldSwitch = false;
+      
+      if (Number(b[i].innerHTML) > Number(b[i + 1].innerHTML)) {
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      b[i].parentNode.insertBefore(b[i + 1], b[i]);
+      switching = true;
+    }
+  }
+}
+</script>
+
+</body>
+</html>
